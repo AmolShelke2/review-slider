@@ -20,7 +20,7 @@ const sliders = function () {
 
   const activateDot = function (slide) {
     document
-      .querySelector(".dots__dot")
+      .querySelectorAll(".dots__dot")
       .forEach((dot) => dot.classList.remove("dots__dot--active"));
 
     document
@@ -63,6 +63,24 @@ const sliders = function () {
   };
 
   init();
+
+  // Event Handlers
+  btnRight.addEventListener("click", nextSlide);
+  btnLeft.addEventListener("click", prevSlide);
+
+  document.addEventListener("keydown", function (e) {
+    console.log(e);
+    if (e.key === "ArrowLeft") prevSlide();
+    e.key === "ArrowRight" && nextSlide();
+  });
+
+  dotContainer.addEventListener("click", function (e) {
+    if (e.target.classList.contains("dots__dot")) {
+      const { slide } = e.target.dataset;
+      goToSlide(slide);
+      activateDot(slide);
+    }
+  });
 };
 
 sliders();
